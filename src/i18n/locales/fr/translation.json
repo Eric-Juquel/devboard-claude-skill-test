@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Tableau de bord",
+    "projects": "Projets",
+    "tasks": "Tâches",
+    "toggleTheme": "Changer le thème",
+    "toggleLanguage": "Changer la langue",
+    "openMenu": "Ouvrir le menu de navigation",
+    "closeMenu": "Fermer le menu de navigation",
+    "mainLabel": "Navigation principale",
+    "mobileMenuLabel": "Menu de navigation mobile"
+  },
+  "home": {
+    "title": "Tableau de bord",
+    "subtitle": "Vue d'ensemble de vos projets et tâches",
+    "stats": {
+      "totalProjects": "Total des projets",
+      "totalTasks": "Total des tâches",
+      "todoTasks": "À faire",
+      "inProgressTasks": "En cours",
+      "doneTasks": "Terminé"
+    }
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Gérez vos projets de développement",
+    "loading": "Chargement des projets...",
+    "error": "Échec du chargement des projets.",
+    "empty": "Aucun projet pour l'instant. Créez le vôtre ci-dessous.",
+    "status": {
+      "active": "Actif",
+      "completed": "Terminé",
+      "archived": "Archivé"
+    },
+    "form": {
+      "addTitle": "Nouveau projet",
+      "editTitle": "Modifier le projet",
+      "name": "Nom",
+      "namePlaceholder": "ex. Mon super projet",
+      "nameMin": "Le nom doit comporter au moins 2 caractères",
+      "description": "Description",
+      "descriptionPlaceholder": "De quoi s'agit-il ?",
+      "status": "Statut",
+      "submit": "Créer le projet",
+      "update": "Enregistrer les modifications",
+      "cancel": "Annuler",
+      "success": "Projet créé avec succès",
+      "updateSuccess": "Projet mis à jour avec succès",
+      "deleteSuccess": "Projet supprimé",
+      "deleteError": "Échec de la suppression du projet",
+      "updateError": "Échec de la mise à jour du projet"
+    }
+  },
+  "tasks": {
+    "title": "Tâches",
+    "subtitle": "Gérez toutes vos tâches sur l'ensemble des projets",
+    "loading": "Chargement des tâches...",
+    "error": "Échec du chargement des tâches.",
+    "empty": "Aucune tâche pour l'instant. Ajoutez la vôtre ci-dessous.",
+    "status": {
+      "todo": "À faire",
+      "in-progress": "En cours",
+      "done": "Terminé"
+    },
+    "priority": {
+      "low": "Faible",
+      "medium": "Moyenne",
+      "high": "Haute"
+    },
+    "form": {
+      "addTitle": "Nouvelle tâche",
+      "editTitle": "Modifier la tâche",
+      "title": "Titre",
+      "titlePlaceholder": "ex. Configurer le pipeline CI/CD",
+      "titleMin": "Le titre doit comporter au moins 2 caractères",
+      "description": "Description",
+      "descriptionPlaceholder": "Détails de la tâche...",
+      "status": "Statut",
+      "priority": "Priorité",
+      "projectId": "Projet",
+      "selectProject": "Sélectionner un projet",
+      "submit": "Créer la tâche",
+      "update": "Enregistrer les modifications",
+      "cancel": "Annuler",
+      "success": "Tâche créée avec succès",
+      "updateSuccess": "Tâche mise à jour avec succès",
+      "deleteSuccess": "Tâche supprimée",
+      "deleteError": "Échec de la suppression de la tâche",
+      "updateError": "Échec de la mise à jour de la tâche"
+    }
+  },
+  "errors": {
+    "title": "Une erreur est survenue",
+    "description": "Une erreur inattendue s'est produite.",
+    "backHome": "Retour à l'accueil",
+    "notFound": {
+      "title": "Page introuvable",
+      "description": "La page que vous recherchez n'existe pas."
+    }
+  }
+}

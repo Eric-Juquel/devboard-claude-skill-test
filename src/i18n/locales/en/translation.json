@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Dashboard",
+    "projects": "Projects",
+    "tasks": "Tasks",
+    "toggleTheme": "Toggle theme",
+    "toggleLanguage": "Toggle language",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "mainLabel": "Main navigation",
+    "mobileMenuLabel": "Mobile navigation menu"
+  },
+  "home": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your projects and tasks",
+    "stats": {
+      "totalProjects": "Total Projects",
+      "totalTasks": "Total Tasks",
+      "todoTasks": "To Do",
+      "inProgressTasks": "In Progress",
+      "doneTasks": "Done"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Manage your development projects",
+    "loading": "Loading projects...",
+    "error": "Failed to load projects.",
+    "empty": "No projects yet. Create your first one below.",
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "archived": "Archived"
+    },
+    "form": {
+      "addTitle": "New Project",
+      "editTitle": "Edit Project",
+      "name": "Name",
+      "namePlaceholder": "e.g. My Awesome App",
+      "nameMin": "Name must be at least 2 characters",
+      "description": "Description",
+      "descriptionPlaceholder": "What is this project about?",
+      "status": "Status",
+      "submit": "Create Project",
+      "update": "Save Changes",
+      "cancel": "Cancel",
+      "success": "Project created successfully",
+      "updateSuccess": "Project updated successfully",
+      "deleteSuccess": "Project deleted",
+      "deleteError": "Failed to delete project",
+      "updateError": "Failed to update project"
+    }
+  },
+  "tasks": {
+    "title": "Tasks",
+    "subtitle": "Manage all your tasks across projects",
+    "loading": "Loading tasks...",
+    "error": "Failed to load tasks.",
+    "empty": "No tasks yet. Add your first one below.",
+    "status": {
+      "todo": "To Do",
+      "in-progress": "In Progress",
+      "done": "Done"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "form": {
+      "addTitle": "New Task",
+      "editTitle": "Edit Task",
+      "title": "Title",
+      "titlePlaceholder": "e.g. Setup CI/CD pipeline",
+      "titleMin": "Title must be at least 2 characters",
+      "description": "Description",
+      "descriptionPlaceholder": "Task details...",
+      "status": "Status",
+      "priority": "Priority",
+      "projectId": "Project",
+      "selectProject": "Select a project",
+      "submit": "Create Task",
+      "update": "Save Changes",
+      "cancel": "Cancel",
+      "success": "Task created successfully",
+      "updateSuccess": "Task updated successfully",
+      "deleteSuccess": "Task deleted",
+      "deleteError": "Failed to delete task",
+      "updateError": "Failed to update task"
+    }
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred.",
+    "backHome": "Back to Home",
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "The page you are looking for does not exist."
+    }
+  }
+}

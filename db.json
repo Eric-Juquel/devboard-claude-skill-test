@@ -1,0 +1,57 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "name": "DevBoard Core",
+      "description": "Main tracking application",
+      "status": "active",
+      "createdAt": "2026-01-15T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Mobile Companion",
+      "description": "React Native mobile app",
+      "status": "active",
+      "createdAt": "2026-02-01T09:00:00Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Setup CI/CD pipeline",
+      "description": "Configure GitHub Actions for automated testing and deployment",
+      "status": "done",
+      "priority": "high",
+      "projectId": "1",
+      "createdAt": "2026-01-16T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "title": "Design system tokens",
+      "description": "Define and document the color palette and typography",
+      "status": "in-progress",
+      "priority": "medium",
+      "projectId": "1",
+      "createdAt": "2026-01-17T10:00:00Z"
+    },
+    {
+      "id": "3",
+      "title": "JWT authentication flow",
+      "description": "Implement login and token refresh",
+      "status": "todo",
+      "priority": "high",
+      "projectId": "2",
+      "createdAt": "2026-02-02T09:00:00Z"
+    },
+    {
+      "id": "4",
+      "title": "Push notifications",
+      "description": "Setup Firebase Cloud Messaging",
+      "status": "todo",
+      "priority": "low",
+      "projectId": "2",
+      "createdAt": "2026-02-03T09:00:00Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
