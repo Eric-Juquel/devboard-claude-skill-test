@@ -2,6 +2,7 @@ import { ConsoleLogger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import { AppModule } from './app.module';
@@ -25,8 +26,8 @@ async function bootstrap() {
 
   // ── Security ──────────────────────────────────────────────────────────────
   // Limit request body size to prevent payload-based DoS attacks.
-  app.use(require('express').json({ limit: '100kb' }));
-  app.use(require('express').urlencoded({ limit: '100kb', extended: true }));
+  app.use(json({ limit: '100kb' }));
+  app.use(urlencoded({ limit: '100kb', extended: true }));
 
   // Helmet sets secure HTTP headers (X-Content-Type-Options, X-Frame-Options,
   // Strict-Transport-Security, etc.) on every response.
