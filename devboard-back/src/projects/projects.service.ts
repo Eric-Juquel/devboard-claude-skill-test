@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ProjectStatus } from '@prisma/client';
 // biome-ignore lint/style/useImportType: NestJS DI requires runtime class import for injection token
 import { PrismaService } from '../prisma/prisma.service';
 import { TaskEntity } from '../tasks/entities/task.entity';
@@ -44,13 +45,24 @@ export class ProjectsService {
   }
 
   async create(dto: CreateProjectDto): Promise<Project> {
-    const row = await this.prisma.project.create({ data: dto });
+    const row = await this.prisma.project.create({
+      data: {
+        ...dto,
+        status: dto.status as ProjectStatus,
+      },
+    });
     return new ProjectEntity(row).toJSON();
   }
 
   async update(id: string, dto: UpdateProjectDto): Promise<Project> {
     await this.findOneOrThrow(id);
-    const row = await this.prisma.project.update({ where: { id }, data: dto });
+    const row = await this.prisma.project.update({
+      where: { id },
+      data: {
+        ...dto,
+        status: dto.status ? (dto.status as ProjectStatus) : undefined,
+      },
+    });
     return new ProjectEntity(row).toJSON();
   }
 

@@ -20,9 +20,4 @@ export default defineConfig({
       exclude: ["src/tests/**", "src/main.tsx", "src/i18n/**", "src/shared/types/**"],
     },
   },
-  server: {
-    watch: {
-      ignored: ["**/db.json"],
-    },
-  },
 });

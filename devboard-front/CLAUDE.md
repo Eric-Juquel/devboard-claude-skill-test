@@ -5,9 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm dev:all        # Start dev server + mock API (JSON Server on :3001) — preferred for local dev
-pnpm dev            # Dev server only (requires VITE_API_BASE_URL set externally)
-pnpm mock:api       # Start JSON Server mock API alone
+pnpm dev            # Start dev server (requires VITE_API_BASE_URL=http://localhost:3000)
 pnpm build          # tsc + vite build
 pnpm lint           # Biome lint
 pnpm lint:fix       # Biome lint with auto-fix
@@ -15,6 +13,7 @@ pnpm format         # Biome format
 pnpm test           # Vitest watch mode
 pnpm test:run       # Vitest single run
 pnpm test:cov       # Vitest with coverage
+pnpm generate:api   # Regenerate Orval HTTP client from openapi.yaml
 ```
 
 Run a single test file:
@@ -24,7 +23,7 @@ pnpm test src/features/projects/__tests__/ProjectsPage.test.tsx
 
 ## Environment
 
-Requires `VITE_API_BASE_URL` — the axios client throws at startup if missing. When using `pnpm dev:all`, JSON Server runs at `http://localhost:3001` and this variable should point there.
+Requires `VITE_API_BASE_URL` — the axios client throws at startup if missing. Set it to `http://localhost:3000` (the NestJS backend). Run `pnpm dev` from the monorepo root to start both frontend and backend together.
 
 ## Architecture
 

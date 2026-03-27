@@ -1,8 +1,9 @@
 import { http, HttpResponse } from "msw";
+import type { Task } from "@/features/tasks/schemas/task.schema";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const mockTasks = [
+export const mockTasks: Task[] = [
   {
     id: "b0000000-0000-0000-0000-000000000001",
     title: "Setup CI/CD pipeline",
