@@ -53,7 +53,7 @@ export function TaskForm() {
         return {};
       }
     },
-    {}
+    {},
   );
 
   return (
@@ -65,14 +65,8 @@ export function TaskForm() {
         <form action={formAction} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="task-title">{t("tasks.form.title")}</Label>
-            <Input
-              id="task-title"
-              name="title"
-              placeholder={t("tasks.form.titlePlaceholder")}
-            />
-            {errors.title && (
-              <p className="text-sm text-destructive">{t("tasks.form.titleMin")}</p>
-            )}
+            <Input id="task-title" name="title" placeholder={t("tasks.form.titlePlaceholder")} />
+            {errors.title && <p className="text-sm text-destructive">{t("tasks.form.titleMin")}</p>}
           </div>
 
           <div className="flex flex-col gap-2">

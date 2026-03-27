@@ -39,7 +39,7 @@ export const taskHandlers = [
     const body = (await request.json()) as Record<string, unknown>;
     return HttpResponse.json(
       { id: "new-task-id", createdAt: new Date().toISOString(), ...body },
-      { status: 201 }
+      { status: 201 },
     );
   }),
 

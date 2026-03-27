@@ -26,7 +26,7 @@ export const projectHandlers = [
     const body = (await request.json()) as Record<string, unknown>;
     return HttpResponse.json(
       { id: "new-project-id", createdAt: new Date().toISOString(), ...body },
-      { status: 201 }
+      { status: 201 },
     );
   }),
 

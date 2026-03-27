@@ -14,7 +14,7 @@ export const taskService = {
   },
 
   update: async (id: string, input: UpdateTaskInput): Promise<Task> => {
-    const { data } = await apiClient.put<unknown>(`/tasks/${id}`, input);
+    const { data } = await apiClient.patch<unknown>(`/tasks/${id}`, input);
     return taskSchema.parse(data);
   },
 

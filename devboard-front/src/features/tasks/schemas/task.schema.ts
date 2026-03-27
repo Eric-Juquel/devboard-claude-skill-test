@@ -8,6 +8,7 @@ export const taskSchema = z.object({
   priority: z.enum(["low", "medium", "high"]),
   projectId: z.string(),
   createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
 });
 
 export type Task = z.infer<typeof taskSchema>;
@@ -22,5 +23,5 @@ export const createTaskSchema = z.object({
 });
 
 export type CreateTaskInput = z.infer<typeof createTaskSchema>;
-export const updateTaskSchema = createTaskSchema;
+export const updateTaskSchema = createTaskSchema.partial();
 export type UpdateTaskInput = z.infer<typeof updateTaskSchema>;

@@ -16,9 +16,7 @@ export default function ProjectsPage() {
 
       {isLoading && <p className="text-muted-foreground">{t("projects.loading")}</p>}
       {isError && <p className="text-destructive">{t("projects.error")}</p>}
-      {projects?.length === 0 && (
-        <p className="text-muted-foreground">{t("projects.empty")}</p>
-      )}
+      {projects?.length === 0 && <p className="text-muted-foreground">{t("projects.empty")}</p>}
       {projects && projects.length > 0 && (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (

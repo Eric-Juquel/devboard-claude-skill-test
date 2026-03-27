@@ -32,7 +32,7 @@ export const ProjectCard = memo(function ProjectCard({ project }: ProjectCardPro
 
   const [optimisticDeleted, setOptimisticDeleted] = useOptimistic(
     false,
-    (_, deleted: boolean) => deleted
+    (_, deleted: boolean) => deleted,
   );
 
   const handleDelete = () => {

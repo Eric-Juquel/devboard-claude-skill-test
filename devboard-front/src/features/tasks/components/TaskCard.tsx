@@ -38,7 +38,7 @@ export const TaskCard = memo(function TaskCard({ task }: TaskCardProps) {
 
   const [optimisticDeleted, setOptimisticDeleted] = useOptimistic(
     false,
-    (_, deleted: boolean) => deleted
+    (_, deleted: boolean) => deleted,
   );
 
   const handleDelete = () => {

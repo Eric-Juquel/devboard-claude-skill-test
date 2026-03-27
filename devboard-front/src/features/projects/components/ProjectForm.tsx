@@ -49,7 +49,7 @@ export function ProjectForm() {
         return {};
       }
     },
-    {}
+    {},
   );
 
   return (
@@ -61,11 +61,7 @@ export function ProjectForm() {
         <form action={formAction} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="project-name">{t("projects.form.name")}</Label>
-            <Input
-              id="project-name"
-              name="name"
-              placeholder={t("projects.form.namePlaceholder")}
-            />
+            <Input id="project-name" name="name" placeholder={t("projects.form.namePlaceholder")} />
             {errors.name && (
               <p className="text-sm text-destructive">{t("projects.form.nameMin")}</p>
             )}

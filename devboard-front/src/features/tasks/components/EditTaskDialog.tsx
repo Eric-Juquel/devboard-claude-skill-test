@@ -72,7 +72,7 @@ export function EditTaskDialog({ task, open, onOpenChange }: EditTaskDialogProps
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>{t("tasks.form.editTitle")}</DialogTitle>
         </DialogHeader>
@@ -84,9 +84,7 @@ export function EditTaskDialog({ task, open, onOpenChange }: EditTaskDialogProps
               placeholder={t("tasks.form.titlePlaceholder")}
               {...register("title")}
             />
-            {errors.title && (
-              <p className="text-sm text-destructive">{t("tasks.form.titleMin")}</p>
-            )}
+            {errors.title && <p className="text-sm text-destructive">{t("tasks.form.titleMin")}</p>}
           </div>
 
           <div className="flex flex-col gap-2">

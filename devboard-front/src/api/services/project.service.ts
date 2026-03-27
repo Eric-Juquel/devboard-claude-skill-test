@@ -4,10 +4,7 @@ import type {
   Project,
   UpdateProjectInput,
 } from "@/features/projects/schemas/project.schema";
-import {
-  projectSchema,
-  projectsResponseSchema,
-} from "@/features/projects/schemas/project.schema";
+import { projectSchema, projectsResponseSchema } from "@/features/projects/schemas/project.schema";
 
 export const projectService = {
   getAll: async (): Promise<Project[]> => {
@@ -21,7 +18,7 @@ export const projectService = {
   },
 
   update: async (id: string, input: UpdateProjectInput): Promise<Project> => {
-    const { data } = await apiClient.put<unknown>(`/projects/${id}`, input);
+    const { data } = await apiClient.patch<unknown>(`/projects/${id}`, input);
     return projectSchema.parse(data);
   },
 
