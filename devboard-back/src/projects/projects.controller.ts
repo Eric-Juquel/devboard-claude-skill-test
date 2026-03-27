@@ -86,7 +86,7 @@ export class ProjectsController {
   })
   @ApiOkResponse({
     description: 'Project found',
-    schema: { example: PROJECT_EXAMPLE },
+    type: ProjectResponseDto,
   })
   @ApiNotFoundResponse({
     description: 'Project not found',
@@ -134,7 +134,7 @@ export class ProjectsController {
   @ApiResponse({
     status: 201,
     description: 'Project created successfully',
-    schema: { example: PROJECT_EXAMPLE },
+    type: ProjectResponseDto,
   })
   @ApiResponse({
     status: 400,
@@ -159,7 +159,7 @@ export class ProjectsController {
   })
   @ApiOkResponse({
     description: 'Updated project',
-    schema: { example: { ...PROJECT_EXAMPLE, name: 'DevBoard Core v2' } },
+    type: ProjectResponseDto,
   })
   @ApiResponse({
     status: 400,

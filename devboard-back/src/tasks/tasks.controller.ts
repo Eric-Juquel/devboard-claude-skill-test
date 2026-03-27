@@ -72,7 +72,7 @@ export class TasksController {
   @ApiParam({ name: 'id', description: 'Task UUID', format: 'uuid', example: 'b0000000-0000-0000-0000-000000000001' })
   @ApiOkResponse({
     description: 'Task found',
-    schema: { example: TASK_EXAMPLE },
+    type: TaskResponseDto,
   })
   @ApiNotFoundResponse({
     description: 'Task not found',
@@ -95,7 +95,7 @@ export class TasksController {
   @ApiResponse({
     status: 201,
     description: 'Task created successfully',
-    schema: { example: TASK_EXAMPLE },
+    type: TaskResponseDto,
   })
   @ApiResponse({
     status: 400,
@@ -115,7 +115,7 @@ export class TasksController {
   @ApiParam({ name: 'id', description: 'Task UUID', format: 'uuid', example: 'b0000000-0000-0000-0000-000000000001' })
   @ApiOkResponse({
     description: 'Updated task',
-    schema: { example: { ...TASK_EXAMPLE, status: 'in-progress' } },
+    type: TaskResponseDto,
   })
   @ApiResponse({
     status: 400,
