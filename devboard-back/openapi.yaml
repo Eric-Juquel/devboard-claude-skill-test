@@ -1,0 +1,730 @@
+openapi: 3.0.0
+paths:
+  /projects:
+    get:
+      description: Returns all projects ordered by creation date (newest first).
+      operationId: ProjectsController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: Array of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectResponseDto'
+                example:
+                  - id: a0000000-0000-0000-0000-000000000001
+                    name: DevBoard Core
+                    description: Main tracking application
+                    status: active
+                    createdAt: '2026-01-15T10:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: List all projects
+      tags:
+        - Projects
+    post:
+      description: Creates a new project. `status` defaults to `active` if omitted.
+      operationId: ProjectsController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectDto'
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                example:
+                  id: a0000000-0000-0000-0000-000000000001
+                  name: DevBoard Core
+                  description: Main tracking application
+                  status: active
+                  createdAt: '2026-01-15T10:00:00.000Z'
+        '400':
+          description: Validation error — check `message` for details
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 400
+                  message:
+                    - 'name: String must contain at least 2 character(s)'
+                  error: BAD_REQUEST
+                  path: /projects
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Create a project
+      tags:
+        - Projects
+  /projects/{id}:
+    get:
+      operationId: ProjectsController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Project UUID
+          schema:
+            format: uuid
+            example: a0000000-0000-0000-0000-000000000001
+            type: string
+      responses:
+        '200':
+          description: Project found
+          content:
+            application/json:
+              schema:
+                example:
+                  id: a0000000-0000-0000-0000-000000000001
+                  name: DevBoard Core
+                  description: Main tracking application
+                  status: active
+                  createdAt: '2026-01-15T10:00:00.000Z'
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  message: Project with id "abc" not found
+                  error: NOT_FOUND
+                  path: /projects/abc
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Get a project by ID
+      tags:
+        - Projects
+    patch:
+      description: Partial update — only send the fields you want to change.
+      operationId: ProjectsController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Project UUID
+          schema:
+            format: uuid
+            example: a0000000-0000-0000-0000-000000000001
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectDto'
+      responses:
+        '200':
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                example:
+                  id: a0000000-0000-0000-0000-000000000001
+                  name: DevBoard Core v2
+                  description: Main tracking application
+                  status: active
+                  createdAt: '2026-01-15T10:00:00.000Z'
+        '400':
+          description: Validation error or invalid UUID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 400
+                  message:
+                    - 'name: String must contain at least 2 character(s)'
+                  error: BAD_REQUEST
+                  path: /projects
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  message: Project with id "abc" not found
+                  error: NOT_FOUND
+                  path: /projects/abc
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Update a project
+      tags:
+        - Projects
+    delete:
+      description: Deletes a project and all its associated tasks (cascade).
+      operationId: ProjectsController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Project UUID
+          schema:
+            format: uuid
+            example: a0000000-0000-0000-0000-000000000001
+            type: string
+      responses:
+        '204':
+          description: Project deleted — no content returned
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  message: Project with id "abc" not found
+                  error: NOT_FOUND
+                  path: /projects/abc
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Delete a project
+      tags:
+        - Projects
+  /projects/{id}/tasks:
+    get:
+      description: Returns all tasks belonging to the project, ordered by creation date (newest first).
+      operationId: ProjectsController_findTasks
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Project UUID
+          schema:
+            format: uuid
+            example: a0000000-0000-0000-0000-000000000001
+            type: string
+      responses:
+        '200':
+          description: Array of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskResponseDto'
+                example:
+                  - id: b0000000-0000-0000-0000-000000000001
+                    title: Setup CI/CD pipeline
+                    status: done
+                    priority: high
+                    projectId: a0000000-0000-0000-0000-000000000001
+                    createdAt: '2026-01-16T10:00:00.000Z'
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  message: Project with id "abc" not found
+                  error: NOT_FOUND
+                  path: /projects/abc
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: List tasks for a project
+      tags:
+        - Projects
+  /tasks:
+    get:
+      description: Returns all tasks ordered by creation date (newest first).
+      operationId: TasksController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: Array of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskResponseDto'
+                example:
+                  - id: b0000000-0000-0000-0000-000000000001
+                    title: Setup CI/CD pipeline
+                    description: Configure GitHub Actions for automated testing and deployment
+                    status: done
+                    priority: high
+                    projectId: a0000000-0000-0000-0000-000000000001
+                    createdAt: '2026-01-16T10:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: List all tasks
+      tags:
+        - Tasks
+    post:
+      description: |-
+        Creates a new task linked to a project.
+
+        `status` defaults to `todo`, `priority` defaults to `medium`.
+
+        Note: `status` uses `"in-progress"` (with a hyphen) as the API value.
+      operationId: TasksController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskDto'
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                example:
+                  id: b0000000-0000-0000-0000-000000000001
+                  title: Setup CI/CD pipeline
+                  description: Configure GitHub Actions for automated testing and deployment
+                  status: done
+                  priority: high
+                  projectId: a0000000-0000-0000-0000-000000000001
+                  createdAt: '2026-01-16T10:00:00.000Z'
+        '400':
+          description: Validation error — check `message` for details
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 400
+                  message:
+                    - 'title: String must contain at least 2 character(s)'
+                  error: BAD_REQUEST
+                  path: /tasks
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Create a task
+      tags:
+        - Tasks
+  /tasks/{id}:
+    get:
+      operationId: TasksController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Task UUID
+          schema:
+            format: uuid
+            example: b0000000-0000-0000-0000-000000000001
+            type: string
+      responses:
+        '200':
+          description: Task found
+          content:
+            application/json:
+              schema:
+                example:
+                  id: b0000000-0000-0000-0000-000000000001
+                  title: Setup CI/CD pipeline
+                  description: Configure GitHub Actions for automated testing and deployment
+                  status: done
+                  priority: high
+                  projectId: a0000000-0000-0000-0000-000000000001
+                  createdAt: '2026-01-16T10:00:00.000Z'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  message: Task with id "abc" not found
+                  error: NOT_FOUND
+                  path: /tasks/abc
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Get a task by ID
+      tags:
+        - Tasks
+    patch:
+      description: Partial update — only send the fields you want to change.
+      operationId: TasksController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Task UUID
+          schema:
+            format: uuid
+            example: b0000000-0000-0000-0000-000000000001
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskDto'
+      responses:
+        '200':
+          description: Updated task
+          content:
+            application/json:
+              schema:
+                example:
+                  id: b0000000-0000-0000-0000-000000000001
+                  title: Setup CI/CD pipeline
+                  description: Configure GitHub Actions for automated testing and deployment
+                  status: in-progress
+                  priority: high
+                  projectId: a0000000-0000-0000-0000-000000000001
+                  createdAt: '2026-01-16T10:00:00.000Z'
+        '400':
+          description: Validation error or invalid UUID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 400
+                  message:
+                    - 'title: String must contain at least 2 character(s)'
+                  error: BAD_REQUEST
+                  path: /tasks
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  message: Task with id "abc" not found
+                  error: NOT_FOUND
+                  path: /tasks/abc
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Update a task
+      tags:
+        - Tasks
+    delete:
+      description: Permanently deletes a task.
+      operationId: TasksController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Task UUID
+          schema:
+            format: uuid
+            example: b0000000-0000-0000-0000-000000000001
+            type: string
+      responses:
+        '204':
+          description: Task deleted — no content returned
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  message: Task with id "abc" not found
+                  error: NOT_FOUND
+                  path: /tasks/abc
+                  timestamp: '2026-03-26T12:00:00.000Z'
+        '429':
+          description: Too many requests — rate limit exceeded
+      summary: Delete a task
+      tags:
+        - Tasks
+  /health:
+    get:
+      description: Returns the health status of the API and its dependencies (database).
+      operationId: HealthController_check
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example:
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+      summary: Health check
+      tags:
+        - Health
+info:
+  title: DevBoard API
+  description: |-
+    RESTful API for managing development projects and tasks.
+
+    All endpoints return JSON. Dates are ISO 8601 strings.
+
+    Error responses always follow the shape:
+    `{ statusCode, message, error, path, timestamp }`
+  version: '1.0'
+  contact: {}
+tags: []
+servers:
+  - url: http://localhost:3000
+    description: Local development
+components:
+  schemas:
+    CreateProjectDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - completed
+            - archived
+          default: active
+      required:
+        - name
+    UpdateProjectDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - completed
+            - archived
+          default: active
+    ProjectResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 2
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - completed
+            - archived
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - status
+        - createdAt
+        - updatedAt
+    TaskResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 2
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - todo
+            - in-progress
+            - done
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+        projectId:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - status
+        - priority
+        - projectId
+        - createdAt
+        - updatedAt
+    CreateTaskDto:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 2
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - todo
+            - in-progress
+            - done
+          default: todo
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+          default: medium
+        projectId:
+          type: string
+          format: uuid
+      required:
+        - title
+        - projectId
+    UpdateTaskDto:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 2
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - todo
+            - in-progress
+            - done
+          default: todo
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+          default: medium
+        projectId:
+          type: string
+          format: uuid
