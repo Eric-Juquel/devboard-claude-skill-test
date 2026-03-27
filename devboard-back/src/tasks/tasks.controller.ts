@@ -51,6 +51,7 @@ export class TasksController {
 
   @Get()
   @ApiOperation({
+    operationId: 'getTasks',
     summary: 'List all tasks',
     description: 'Returns all tasks ordered by creation date (newest first).',
   })
@@ -67,7 +68,7 @@ export class TasksController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get a task by ID' })
+  @ApiOperation({ operationId: 'getTaskById', summary: 'Get a task by ID' })
   @ApiParam({ name: 'id', description: 'Task UUID', format: 'uuid', example: 'b0000000-0000-0000-0000-000000000001' })
   @ApiOkResponse({
     description: 'Task found',
@@ -84,6 +85,7 @@ export class TasksController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
+    operationId: 'createTask',
     summary: 'Create a task',
     description:
       'Creates a new task linked to a project.\n\n' +
@@ -106,6 +108,7 @@ export class TasksController {
 
   @Patch(':id')
   @ApiOperation({
+    operationId: 'updateTask',
     summary: 'Update a task',
     description: 'Partial update — only send the fields you want to change.',
   })
@@ -130,6 +133,7 @@ export class TasksController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
+    operationId: 'deleteTask',
     summary: 'Delete a task',
     description: 'Permanently deletes a task.',
   })

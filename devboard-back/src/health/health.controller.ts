@@ -20,6 +20,7 @@ export class HealthController {
   @Get()
   @HealthCheck()
   @ApiOperation({
+    operationId: 'getHealth',
     summary: 'Health check',
     description: 'Returns the health status of the API and its dependencies (database).',
   })

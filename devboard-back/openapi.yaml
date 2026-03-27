@@ -3,7 +3,7 @@ paths:
   /projects:
     get:
       description: Returns all projects ordered by creation date (newest first).
-      operationId: ProjectsController_findAll
+      operationId: getProjects
       parameters: []
       responses:
         '200':
@@ -27,7 +27,7 @@ paths:
         - Projects
     post:
       description: Creates a new project. `status` defaults to `active` if omitted.
-      operationId: ProjectsController_create
+      operationId: createProject
       parameters: []
       requestBody:
         required: true
@@ -66,7 +66,7 @@ paths:
         - Projects
   /projects/{id}:
     get:
-      operationId: ProjectsController_findOne
+      operationId: getProjectById
       parameters:
         - name: id
           required: true
@@ -106,7 +106,7 @@ paths:
         - Projects
     patch:
       description: Partial update — only send the fields you want to change.
-      operationId: ProjectsController_update
+      operationId: updateProject
       parameters:
         - name: id
           required: true
@@ -164,7 +164,7 @@ paths:
         - Projects
     delete:
       description: Deletes a project and all its associated tasks (cascade).
-      operationId: ProjectsController_remove
+      operationId: deleteProject
       parameters:
         - name: id
           required: true
@@ -196,7 +196,7 @@ paths:
   /projects/{id}/tasks:
     get:
       description: Returns all tasks belonging to the project, ordered by creation date (newest first).
-      operationId: ProjectsController_findTasks
+      operationId: getProjectTasks
       parameters:
         - name: id
           required: true
@@ -241,7 +241,7 @@ paths:
   /tasks:
     get:
       description: Returns all tasks ordered by creation date (newest first).
-      operationId: TasksController_findAll
+      operationId: getTasks
       parameters: []
       responses:
         '200':
@@ -272,7 +272,7 @@ paths:
         `status` defaults to `todo`, `priority` defaults to `medium`.
 
         Note: `status` uses `"in-progress"` (with a hyphen) as the API value.
-      operationId: TasksController_create
+      operationId: createTask
       parameters: []
       requestBody:
         required: true
@@ -313,7 +313,7 @@ paths:
         - Tasks
   /tasks/{id}:
     get:
-      operationId: TasksController_findOne
+      operationId: getTaskById
       parameters:
         - name: id
           required: true
@@ -355,7 +355,7 @@ paths:
         - Tasks
     patch:
       description: Partial update — only send the fields you want to change.
-      operationId: TasksController_update
+      operationId: updateTask
       parameters:
         - name: id
           required: true
@@ -415,7 +415,7 @@ paths:
         - Tasks
     delete:
       description: Permanently deletes a task.
-      operationId: TasksController_remove
+      operationId: deleteTask
       parameters:
         - name: id
           required: true
@@ -447,7 +447,7 @@ paths:
   /health:
     get:
       description: Returns the health status of the API and its dependencies (database).
-      operationId: HealthController_check
+      operationId: getHealth
       parameters: []
       responses:
         '200':
