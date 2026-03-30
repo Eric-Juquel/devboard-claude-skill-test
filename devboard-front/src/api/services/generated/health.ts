@@ -10,27 +10,20 @@ Error responses always follow the shape:
 `{ statusCode, message, error, path, timestamp }`
  * OpenAPI spec version: 1.0
  */
-import type {
-  GetHealth200
-} from '../../model';
 
 import { orvalMutator } from '../../client/orval-mutator';
+import type { GetHealth200 } from '../../model';
 
-
-
-
-  export const getHealth = () => {
-/**
- * Returns the health status of the API and its dependencies (database).
- * @summary Health check
- */
-const getHealth = (
-
- ) => {
-      return orvalMutator<GetHealth200>(
-      {url: `/health`, method: 'GET'
-    },
-      );
-    }
-  return {getHealth}};
-export type GetHealthResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getHealth>['getHealth']>>>
+export const getHealth = () => {
+  /**
+   * Returns the health status of the API and its dependencies (database).
+   * @summary Health check
+   */
+  const getHealth = () => {
+    return orvalMutator<GetHealth200>({ url: `/health`, method: 'GET' });
+  };
+  return { getHealth };
+};
+export type GetHealthResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getHealth>['getHealth']>>
+>;

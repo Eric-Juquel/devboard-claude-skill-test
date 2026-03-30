@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ProjectStatus } from '@prisma/client';
+import type { ProjectStatus } from '@prisma/client';
 // biome-ignore lint/style/useImportType: NestJS DI requires runtime class import for injection token
 import { PrismaService } from '../prisma/prisma.service';
 import { TaskEntity } from '../tasks/entities/task.entity';

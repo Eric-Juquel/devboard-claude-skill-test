@@ -14,7 +14,9 @@ Error responses always follow the shape:
 /**
  * @nullable
  */
-export type GetHealth200Error = {[key: string]: {
-  status: string;
-  [key: string]: unknown;
- }} | null;
+export type GetHealth200Error = {
+  [key: string]: {
+    status: string;
+    [key: string]: unknown;
+  };
+} | null;

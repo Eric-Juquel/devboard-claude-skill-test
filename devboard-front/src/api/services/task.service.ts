@@ -1,6 +1,6 @@
-import type { CreateTaskInput, Task, UpdateTaskInput } from "@/features/tasks/schemas/task.schema";
-import { taskSchema, tasksResponseSchema } from "@/features/tasks/schemas/task.schema";
-import { getTasks as getTasksClient } from "@/api/services/generated/tasks";
+import { getTasks as getTasksClient } from '@/api/services/generated/tasks';
+import type { CreateTaskInput, Task, UpdateTaskInput } from '@/features/tasks/schemas/task.schema';
+import { taskSchema, tasksResponseSchema } from '@/features/tasks/schemas/task.schema';
 
 const client = getTasksClient();
 

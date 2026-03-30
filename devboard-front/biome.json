@@ -24,7 +24,7 @@
     }
   },
   "javascript": {
-    "formatter": { "quoteStyle": "double", "jsxQuoteStyle": "double" }
+    "formatter": { "quoteStyle": "single", "jsxQuoteStyle": "single" }
   },
   "css": {
     "formatter": { "enabled": true },

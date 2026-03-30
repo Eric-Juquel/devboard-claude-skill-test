@@ -1,11 +1,11 @@
-import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { projectService } from "@/api/services/project.service";
+import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { projectService } from '@/api/services/project.service';
 import type {
   CreateProjectInput,
   UpdateProjectInput,
-} from "@/features/projects/schemas/project.schema";
+} from '@/features/projects/schemas/project.schema';
 
-const QUERY_KEY = ["projects"] as const;
+const QUERY_KEY = ['projects'] as const;
 
 export const projectsQueryOptions = queryOptions({
   queryKey: QUERY_KEY,

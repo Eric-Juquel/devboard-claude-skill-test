@@ -11,8 +11,7 @@ Error responses always follow the shape:
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateTaskDtoStatus = typeof UpdateTaskDtoStatus[keyof typeof UpdateTaskDtoStatus];
-
+export type UpdateTaskDtoStatus = (typeof UpdateTaskDtoStatus)[keyof typeof UpdateTaskDtoStatus];
 
 export const UpdateTaskDtoStatus = {
   todo: 'todo',

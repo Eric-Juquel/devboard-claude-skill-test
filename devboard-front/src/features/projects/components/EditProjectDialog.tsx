@@ -1,24 +1,24 @@
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
-import { useUpdateProjectMutation } from "@/api/queries/project.query";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+import { useUpdateProjectMutation } from '@/api/queries/project.query';
 import {
-  updateProjectSchema,
   type Project,
   type UpdateProjectInput,
-} from "@/features/projects/schemas/project.schema";
-import { Button } from "@/shared/components/ui/button";
+  updateProjectSchema,
+} from '@/features/projects/schemas/project.schema';
+import { Button } from '@/shared/components/ui/button';
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/shared/components/ui/dialog";
-import { Input } from "@/shared/components/ui/input";
-import { Label } from "@/shared/components/ui/label";
+} from '@/shared/components/ui/dialog';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
 
 interface EditProjectDialogProps {
   readonly project: Project;
@@ -40,7 +40,7 @@ export function EditProjectDialog({ project, open, onOpenChange }: EditProjectDi
     resolver: zodResolver(updateProjectSchema as any),
     defaultValues: {
       name: project.name,
-      description: project.description ?? "",
+      description: project.description ?? '',
       status: project.status,
     },
   });
@@ -49,7 +49,7 @@ export function EditProjectDialog({ project, open, onOpenChange }: EditProjectDi
     if (open) {
       reset({
         name: project.name,
-        description: project.description ?? "",
+        description: project.description ?? '',
         status: project.status,
       });
     }
@@ -58,10 +58,10 @@ export function EditProjectDialog({ project, open, onOpenChange }: EditProjectDi
   const onSubmit = async (data: UpdateProjectInput) => {
     try {
       await updateProject.mutateAsync({ id: project.id, input: data });
-      toast.success(t("projects.form.updateSuccess"));
+      toast.success(t('projects.form.updateSuccess'));
       onOpenChange(false);
     } catch {
-      toast.error(t("projects.form.updateError"));
+      toast.error(t('projects.form.updateError'));
     }
   };
 
@@ -69,38 +69,38 @@ export function EditProjectDialog({ project, open, onOpenChange }: EditProjectDi
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
-          <DialogTitle>{t("projects.form.editTitle")}</DialogTitle>
+          <DialogTitle>{t('projects.form.editTitle')}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 pt-4">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="edit-project-name">{t("projects.form.name")}</Label>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 pt-4'>
+          <div className='flex flex-col gap-2'>
+            <Label htmlFor='edit-project-name'>{t('projects.form.name')}</Label>
             <Input
-              id="edit-project-name"
-              placeholder={t("projects.form.namePlaceholder")}
-              {...register("name")}
+              id='edit-project-name'
+              placeholder={t('projects.form.namePlaceholder')}
+              {...register('name')}
             />
             {errors.name && (
-              <p className="text-sm text-destructive">{t("projects.form.nameMin")}</p>
+              <p className='text-sm text-destructive'>{t('projects.form.nameMin')}</p>
             )}
           </div>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="edit-project-description">{t("projects.form.description")}</Label>
+          <div className='flex flex-col gap-2'>
+            <Label htmlFor='edit-project-description'>{t('projects.form.description')}</Label>
             <Input
-              id="edit-project-description"
-              placeholder={t("projects.form.descriptionPlaceholder")}
-              {...register("description")}
+              id='edit-project-description'
+              placeholder={t('projects.form.descriptionPlaceholder')}
+              {...register('description')}
             />
           </div>
 
-          <div className="flex justify-end gap-2">
+          <div className='flex justify-end gap-2'>
             <DialogClose asChild>
-              <Button type="button" variant="outline">
-                {t("projects.form.cancel")}
+              <Button type='button' variant='outline'>
+                {t('projects.form.cancel')}
               </Button>
             </DialogClose>
-            <Button type="submit" disabled={isSubmitting}>
-              {t("projects.form.update")}
+            <Button type='submit' disabled={isSubmitting}>
+              {t('projects.form.update')}
             </Button>
           </div>
         </form>

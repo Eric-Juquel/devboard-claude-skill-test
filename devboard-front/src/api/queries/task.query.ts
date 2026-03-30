@@ -1,8 +1,8 @@
-import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { taskService } from "@/api/services/task.service";
-import type { CreateTaskInput, UpdateTaskInput } from "@/features/tasks/schemas/task.schema";
+import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { taskService } from '@/api/services/task.service';
+import type { CreateTaskInput, UpdateTaskInput } from '@/features/tasks/schemas/task.schema';
 
-const QUERY_KEY = ["tasks"] as const;
+const QUERY_KEY = ['tasks'] as const;
 
 export const tasksQueryOptions = queryOptions({
   queryKey: QUERY_KEY,

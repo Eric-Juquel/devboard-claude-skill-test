@@ -8,6 +8,8 @@
     "dev:package": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "check": "biome check ./src",
+    "check:fix": "biome check --write ./src",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --write ./src",
     "format": "biome format --write ./src",
@@ -38,7 +40,7 @@
     "zustand": "5.0.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.0",
+    "@biomejs/biome": "2.4.8",
     "@tailwindcss/vite": "4.1.4",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",

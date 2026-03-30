@@ -11,7 +11,9 @@ Error responses always follow the shape:
  * OpenAPI spec version: 1.0
  */
 
-export type GetHealth200Details = {[key: string]: {
-  status: string;
-  [key: string]: unknown;
- }};
+export type GetHealth200Details = {
+  [key: string]: {
+    status: string;
+    [key: string]: unknown;
+  };
+};

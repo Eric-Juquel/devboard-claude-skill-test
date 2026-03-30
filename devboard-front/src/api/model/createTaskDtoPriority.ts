@@ -11,8 +11,8 @@ Error responses always follow the shape:
  * OpenAPI spec version: 1.0
  */
 
-export type CreateTaskDtoPriority = typeof CreateTaskDtoPriority[keyof typeof CreateTaskDtoPriority];
-
+export type CreateTaskDtoPriority =
+  (typeof CreateTaskDtoPriority)[keyof typeof CreateTaskDtoPriority];
 
 export const CreateTaskDtoPriority = {
   low: 'low',

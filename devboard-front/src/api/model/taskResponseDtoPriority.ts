@@ -11,8 +11,8 @@ Error responses always follow the shape:
  * OpenAPI spec version: 1.0
  */
 
-export type TaskResponseDtoPriority = typeof TaskResponseDtoPriority[keyof typeof TaskResponseDtoPriority];
-
+export type TaskResponseDtoPriority =
+  (typeof TaskResponseDtoPriority)[keyof typeof TaskResponseDtoPriority];
 
 export const TaskResponseDtoPriority = {
   low: 'low',

@@ -1,10 +1,10 @@
+import { getProjects as getProjectsClient } from '@/api/services/generated/projects';
 import type {
   CreateProjectInput,
   Project,
   UpdateProjectInput,
-} from "@/features/projects/schemas/project.schema";
-import { projectSchema, projectsResponseSchema } from "@/features/projects/schemas/project.schema";
-import { getProjects as getProjectsClient } from "@/api/services/generated/projects";
+} from '@/features/projects/schemas/project.schema';
+import { projectSchema, projectsResponseSchema } from '@/features/projects/schemas/project.schema';
 
 const client = getProjectsClient();
 

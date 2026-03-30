@@ -1,6 +1,6 @@
-import { createJSONStorage, persist } from "zustand/middleware";
-import { create } from "zustand";
-import type { Theme } from "@/shared/types/common";
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import type { Theme } from '@/shared/types/common';
 
 interface AppState {
   theme: Theme;
@@ -11,12 +11,12 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
-      theme: "light",
+      theme: 'light',
       setTheme: (theme) => set({ theme }),
-      toggleTheme: () => set({ theme: get().theme === "light" ? "dark" : "light" }),
+      toggleTheme: () => set({ theme: get().theme === 'light' ? 'dark' : 'light' }),
     }),
     {
-      name: "app-store",
+      name: 'app-store',
       storage: createJSONStorage(() => localStorage),
     },
   ),

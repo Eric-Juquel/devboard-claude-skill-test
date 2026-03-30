@@ -11,8 +11,8 @@ Error responses always follow the shape:
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateProjectDtoStatus = typeof UpdateProjectDtoStatus[keyof typeof UpdateProjectDtoStatus];
-
+export type UpdateProjectDtoStatus =
+  (typeof UpdateProjectDtoStatus)[keyof typeof UpdateProjectDtoStatus];
 
 export const UpdateProjectDtoStatus = {
   active: 'active',

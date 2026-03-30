@@ -1,22 +1,22 @@
-import { Suspense, lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
-import { AppLayout } from "@/app/layout/AppLayout";
-import { ErrorPage } from "@/app/error-handling/ErrorPage";
-import { NotFoundPage } from "@/app/error-handling/NotFoundPage";
+import { lazy, Suspense } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+import { ErrorPage } from '@/app/error-handling/ErrorPage';
+import { NotFoundPage } from '@/app/error-handling/NotFoundPage';
+import { AppLayout } from '@/app/layout/AppLayout';
 
-const HomePage = lazy(() => import("@/features/home/pages/HomePage"));
-const ProjectsPage = lazy(() => import("@/features/projects/pages/ProjectsPage"));
-const TasksPage = lazy(() => import("@/features/tasks/pages/TasksPage"));
+const HomePage = lazy(() => import('@/features/home/pages/HomePage'));
+const ProjectsPage = lazy(() => import('@/features/projects/pages/ProjectsPage'));
+const TasksPage = lazy(() => import('@/features/tasks/pages/TasksPage'));
 
 const PageLoader = () => (
-  <div className="flex min-h-[60vh] items-center justify-center">
-    <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+  <div className='flex min-h-[60vh] items-center justify-center'>
+    <div className='h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent' />
   </div>
 );
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     errorElement: <ErrorPage />,
     children: [
       {
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "projects",
+        path: 'projects',
         element: (
           <AppLayout>
             <Suspense fallback={<PageLoader />}>
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "tasks",
+        path: 'tasks',
         element: (
           <AppLayout>
             <Suspense fallback={<PageLoader />}>
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "*",
+        path: '*',
         element: (
           <AppLayout>
             <NotFoundPage />

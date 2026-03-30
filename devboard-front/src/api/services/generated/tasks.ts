@@ -10,31 +10,20 @@ Error responses always follow the shape:
 `{ statusCode, message, error, path, timestamp }`
  * OpenAPI spec version: 1.0
  */
-import type {
-  CreateTaskDto,
-  TaskResponseDto,
-  UpdateTaskDto
-} from '../../model';
 
-import { orvalMutator } from '../../client/orval-mutator';
 import type { BodyType } from '../../client/orval-mutator';
 
+import { orvalMutator } from '../../client/orval-mutator';
+import type { CreateTaskDto, TaskResponseDto, UpdateTaskDto } from '../../model';
 
-
-
-  export const getTasks = () => {
-/**
- * Returns all tasks ordered by creation date (newest first).
- * @summary List all tasks
- */
-const getTasks = (
-
- ) => {
-      return orvalMutator<TaskResponseDto[]>(
-      {url: `/tasks`, method: 'GET'
-    },
-      );
-    }
+export const getTasks = () => {
+  /**
+   * Returns all tasks ordered by creation date (newest first).
+   * @summary List all tasks
+   */
+  const getTasks = () => {
+    return orvalMutator<TaskResponseDto[]>({ url: `/tasks`, method: 'GET' });
+  };
   /**
  * Creates a new task linked to a project.
 
@@ -43,57 +32,53 @@ const getTasks = (
 Note: `status` uses `"in-progress"` (with a hyphen) as the API value.
  * @summary Create a task
  */
-const createTask = (
-    createTaskDto: BodyType<CreateTaskDto>,
- ) => {
-      return orvalMutator<TaskResponseDto>(
-      {url: `/tasks`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createTaskDto
-    },
-      );
-    }
+  const createTask = (createTaskDto: BodyType<CreateTaskDto>) => {
+    return orvalMutator<TaskResponseDto>({
+      url: `/tasks`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: createTaskDto,
+    });
+  };
   /**
- * @summary Get a task by ID
- */
-const getTaskById = (
-    id: string,
- ) => {
-      return orvalMutator<TaskResponseDto>(
-      {url: `/tasks/${id}`, method: 'GET'
-    },
-      );
-    }
+   * @summary Get a task by ID
+   */
+  const getTaskById = (id: string) => {
+    return orvalMutator<TaskResponseDto>({ url: `/tasks/${id}`, method: 'GET' });
+  };
   /**
- * Partial update — only send the fields you want to change.
- * @summary Update a task
- */
-const updateTask = (
-    id: string,
-    updateTaskDto: BodyType<UpdateTaskDto>,
- ) => {
-      return orvalMutator<TaskResponseDto>(
-      {url: `/tasks/${id}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateTaskDto
-    },
-      );
-    }
+   * Partial update — only send the fields you want to change.
+   * @summary Update a task
+   */
+  const updateTask = (id: string, updateTaskDto: BodyType<UpdateTaskDto>) => {
+    return orvalMutator<TaskResponseDto>({
+      url: `/tasks/${id}`,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      data: updateTaskDto,
+    });
+  };
   /**
- * Permanently deletes a task.
- * @summary Delete a task
- */
-const deleteTask = (
-    id: string,
- ) => {
-      return orvalMutator<void>(
-      {url: `/tasks/${id}`, method: 'DELETE'
-    },
-      );
-    }
-  return {getTasks,createTask,getTaskById,updateTask,deleteTask}};
-export type GetTasksResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTasks>['getTasks']>>>
-export type CreateTaskResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTasks>['createTask']>>>
-export type GetTaskByIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTasks>['getTaskById']>>>
-export type UpdateTaskResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTasks>['updateTask']>>>
-export type DeleteTaskResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTasks>['deleteTask']>>>
+   * Permanently deletes a task.
+   * @summary Delete a task
+   */
+  const deleteTask = (id: string) => {
+    return orvalMutator<void>({ url: `/tasks/${id}`, method: 'DELETE' });
+  };
+  return { getTasks, createTask, getTaskById, updateTask, deleteTask };
+};
+export type GetTasksResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getTasks>['getTasks']>>
+>;
+export type CreateTaskResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getTasks>['createTask']>>
+>;
+export type GetTaskByIdResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getTasks>['getTaskById']>>
+>;
+export type UpdateTaskResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getTasks>['updateTask']>>
+>;
+export type DeleteTaskResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getTasks>['deleteTask']>>
+>;

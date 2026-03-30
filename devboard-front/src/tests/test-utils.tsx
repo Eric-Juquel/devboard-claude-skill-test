@@ -1,7 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { type RenderOptions, render } from "@testing-library/react";
-import type { ReactElement } from "react";
-import { MemoryRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { type RenderOptions, render } from '@testing-library/react';
+import type { ReactElement } from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
 interface WrapperProps {
   readonly children: React.ReactNode;
@@ -25,10 +25,10 @@ function AllProviders({ children }: WrapperProps) {
   );
 }
 
-function customRender(ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) {
+function customRender(ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) {
   return render(ui, { wrapper: AllProviders, ...options });
 }
 
-export { act, screen, waitFor } from "@testing-library/react";
-export { default as userEvent } from "@testing-library/user-event";
+export { act, screen, waitFor } from '@testing-library/react';
+export { default as userEvent } from '@testing-library/user-event';
 export { customRender as render };

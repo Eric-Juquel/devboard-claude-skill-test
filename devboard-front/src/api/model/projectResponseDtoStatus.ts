@@ -11,8 +11,8 @@ Error responses always follow the shape:
  * OpenAPI spec version: 1.0
  */
 
-export type ProjectResponseDtoStatus = typeof ProjectResponseDtoStatus[keyof typeof ProjectResponseDtoStatus];
-
+export type ProjectResponseDtoStatus =
+  (typeof ProjectResponseDtoStatus)[keyof typeof ProjectResponseDtoStatus];
 
 export const ProjectResponseDtoStatus = {
   active: 'active',
