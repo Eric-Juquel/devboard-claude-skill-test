@@ -19,7 +19,7 @@ export function Header() {
   const theme = useAppStore((state) => state.theme);
   const toggleTheme = useAppStore((state) => state.toggleTheme);
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDialogElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
 
   const navLinks = useMemo(
@@ -144,13 +144,12 @@ export function Header() {
 
       {/* Mobile nav drawer */}
       {menuOpen && (
-        <div
+        <dialog
           ref={menuRef}
           id={NAV_MENU_ID}
-          role='dialog'
-          aria-modal='true'
+          open
           aria-label={t('nav.mobileMenuLabel')}
-          className='border-t border-border bg-background md:hidden animate-[slide-down_0.18s_ease-out]'
+          className='border-t border-border bg-background md:hidden animate-[slide-down_0.18s_ease-out] m-0 w-full p-0 border-x-0 border-b-0'
         >
           <nav aria-label={t('nav.mainLabel')} className='flex flex-col px-4 py-3 gap-1'>
             {navLinks.map((link) => (
@@ -172,7 +171,7 @@ export function Header() {
               </NavLink>
             ))}
           </nav>
-        </div>
+        </dialog>
       )}
     </header>
   );
