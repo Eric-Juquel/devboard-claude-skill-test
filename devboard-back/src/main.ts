@@ -82,11 +82,13 @@ async function bootstrap() {
   const port = config.get<number>('PORT', 3000);
   await app.listen(port);
 
+  const frontendUrl = allowedOrigins[0];
   console.log(`\n🚀 DevBoard API running on http://localhost:${port}`);
   if (env !== 'production') {
     console.log(`📖 Swagger UI:          http://localhost:${port}/docs`);
-    console.log(`📖 OpenAPI JSON:        http://localhost:${port}/docs-json\n`);
+    console.log(`📖 OpenAPI JSON:        http://localhost:${port}/docs-json`);
   }
+  console.log(`🌐 Frontend:            ${frontendUrl}\n`);
 }
 
 bootstrap();
