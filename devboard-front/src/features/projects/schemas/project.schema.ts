@@ -19,5 +19,10 @@ export const createProjectSchema = z.object({
 });
 
 export type CreateProjectInput = z.infer<typeof createProjectSchema>;
-export const updateProjectSchema = createProjectSchema;
+// Defined without .default() to avoid ZodDefault in the type chain (prevents TS2589 with zodResolver)
+export const updateProjectSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  description: z.string().optional(),
+  status: z.enum(['active', 'completed', 'archived']),
+});
 export type UpdateProjectInput = z.infer<typeof updateProjectSchema>;

@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { TaskStatus } from '@prisma/client';
 // biome-ignore lint/style/useImportType: NestJS DI requires runtime class import for injection token
 import { PrismaService } from '../prisma/prisma.service';
 import type { CreateTaskDto } from './dto/create-task.dto';
@@ -27,7 +26,7 @@ export class TasksService {
     const row = await this.prisma.task.create({
       data: {
         ...dto,
-        status: this.toPrismaStatus(dto.status),
+        status: TaskEntity.toPrismaStatus(dto.status),
       },
     });
     return new TaskEntity(row).toJSON();
@@ -39,7 +38,7 @@ export class TasksService {
       where: { id },
       data: {
         ...dto,
-        status: dto.status ? this.toPrismaStatus(dto.status) : undefined,
+        status: dto.status !== undefined ? TaskEntity.toPrismaStatus(dto.status) : undefined,
       },
     });
     return new TaskEntity(row).toJSON();
@@ -58,14 +57,5 @@ export class TasksService {
       throw new NotFoundException(`Task with id "${id}" not found`);
     }
     return task;
-  }
-
-  /**
-   * Converts the API status value ("in-progress") to the Prisma enum value (in_progress).
-   * This is the write-path counterpart of TaskEntity.mapStatus() (the read-path).
-   */
-  private toPrismaStatus(apiStatus: string | undefined): TaskStatus {
-    if (apiStatus === 'in-progress') return TaskStatus.in_progress;
-    return (apiStatus ?? 'todo') as TaskStatus;
   }
 }

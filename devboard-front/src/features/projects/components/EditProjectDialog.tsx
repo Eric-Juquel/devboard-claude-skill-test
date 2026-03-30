@@ -36,8 +36,8 @@ export function EditProjectDialog({ project, open, onOpenChange }: EditProjectDi
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UpdateProjectInput>({
-    // biome-ignore lint/suspicious/noExplicitAny: prevents TS2589 deep instantiation with Zod default fields
-    resolver: zodResolver(updateProjectSchema as any),
+    // @ts-expect-error TS2589: zodResolver cannot fully instantiate ZodObject's type chain; form type safety is preserved by useForm<UpdateProjectInput> above
+    resolver: zodResolver(updateProjectSchema),
     defaultValues: {
       name: project.name,
       description: project.description ?? '',

@@ -38,8 +38,8 @@ export function EditTaskDialog({ task, open, onOpenChange }: EditTaskDialogProps
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UpdateTaskInput>({
-    // biome-ignore lint/suspicious/noExplicitAny: prevents TS2589 deep instantiation with Zod default fields
-    resolver: zodResolver(updateTaskSchema as any),
+    // @ts-expect-error TS2589: zodResolver cannot fully instantiate ZodObject's type chain; form type safety is preserved by useForm<UpdateTaskInput> above
+    resolver: zodResolver(updateTaskSchema),
     defaultValues: {
       title: task.title,
       description: task.description ?? '',

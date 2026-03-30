@@ -23,5 +23,12 @@ export const createTaskSchema = z.object({
 });
 
 export type CreateTaskInput = z.infer<typeof createTaskSchema>;
-export const updateTaskSchema = createTaskSchema.partial();
+// Defined without .partial() on a schema with .default() to avoid ZodDefault in the type chain (prevents TS2589 with zodResolver)
+export const updateTaskSchema = z.object({
+  title: z.string().min(2, 'Title must be at least 2 characters').optional(),
+  description: z.string().optional(),
+  status: z.enum(['todo', 'in-progress', 'done']).optional(),
+  priority: z.enum(['low', 'medium', 'high']).optional(),
+  projectId: z.string().min(1, 'Project is required').optional(),
+});
 export type UpdateTaskInput = z.infer<typeof updateTaskSchema>;
