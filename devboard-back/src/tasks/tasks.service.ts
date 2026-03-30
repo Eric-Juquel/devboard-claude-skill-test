@@ -38,7 +38,7 @@ export class TasksService {
       where: { id },
       data: {
         ...dto,
-        status: dto.status !== undefined ? TaskEntity.toPrismaStatus(dto.status) : undefined,
+        status: dto.status === undefined ? undefined : TaskEntity.toPrismaStatus(dto.status),
       },
     });
     return new TaskEntity(row).toJSON();
