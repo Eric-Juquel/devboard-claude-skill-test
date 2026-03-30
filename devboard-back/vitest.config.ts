@@ -8,6 +8,7 @@ export default defineConfig({
     environment: 'node',
     include: ['src/**/*.spec.ts'],
     coverage: {
+      reporter: ['text', 'lcov'],
       include: ['src/**'],
       exclude: [
         'src/main.ts',
