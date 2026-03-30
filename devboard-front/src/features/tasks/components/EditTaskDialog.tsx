@@ -38,7 +38,6 @@ export function EditTaskDialog({ task, open, onOpenChange }: EditTaskDialogProps
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UpdateTaskInput>({
-    // @ts-expect-error TS2589: zodResolver cannot fully instantiate ZodObject's type chain; form type safety is preserved by useForm<UpdateTaskInput> above
     resolver: zodResolver(updateTaskSchema),
     defaultValues: {
       title: task.title,
