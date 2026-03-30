@@ -127,6 +127,44 @@ jobs:
       - name: E2E tests
         run: pnpm --filter devboard-backend test:e2e
 
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    needs: [ci-frontend, ci-backend]
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter devboard-backend prisma:generate
+
+      - name: Coverage — frontend
+        run: pnpm --filter devboard test:cov
+        continue-on-error: true
+
+      - name: Coverage — backend
+        run: pnpm --filter devboard-backend test:cov
+        continue-on-error: true
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v3
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   security:
     name: Security Scan (Trivy)
     runs-on: ubuntu-latest
