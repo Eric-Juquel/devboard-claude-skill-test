@@ -7,6 +7,16 @@ export default defineConfig({
     root: './',
     environment: 'node',
     include: ['src/**/*.spec.ts'],
+    coverage: {
+      include: ['src/**'],
+      exclude: [
+        'src/main.ts',
+        'src/**/*.module.ts',
+        'src/**/dto/**',
+        'src/**/*.entity.ts',
+        'src/**/*.schema.ts',
+      ],
+    },
   },
   plugins: [
     swc.vite({

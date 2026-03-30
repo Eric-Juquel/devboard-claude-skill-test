@@ -17,7 +17,20 @@ export default defineConfig({
       VITE_API_BASE_URL: "http://localhost:3000",
     },
     coverage: {
-      exclude: ["src/tests/**", "src/main.tsx", "src/i18n/**", "src/shared/types/**"],
+      include: ["src/**"],
+      exclude: [
+        "src/tests/**",
+        "src/main.tsx",
+        "src/vite-env.d.ts",
+        "src/styles/**",
+        "src/i18n/**",
+        "src/shared/types/**",
+        "src/shared/components/ui/**",
+        "src/api/model/**",
+        "src/api/services/generated/**",
+        "src/app/providers.tsx",
+        "src/app/router.tsx",
+      ],
     },
   },
 });
