@@ -1,7 +1,7 @@
 import { type INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import * as request from 'supertest';
+import request from 'supertest';
 import { ZodValidationPipe, patchNestJsSwagger } from 'nestjs-zod';
 import { AppModule } from '../src/app.module';
 import { HttpExceptionFilter } from '../src/common/filters/http-exception.filter';

@@ -1,0 +1,154 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+# Node.js 20 actions are deprecated — this forces them to run on Node.js 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  ci-frontend:
+    name: CI Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm --filter devboard typecheck
+
+      - name: Lint
+        run: pnpm --filter devboard lint
+
+      - name: Tests
+        run: pnpm --filter devboard test:run
+
+      - name: Build
+        run: pnpm --filter devboard build
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL || 'http://localhost:3000' }}
+
+  ci-backend:
+    name: CI Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter devboard-backend prisma:generate
+
+      - name: Lint
+        run: pnpm --filter devboard-backend lint
+
+      - name: Tests
+        run: pnpm --filter devboard-backend test
+
+      - name: Build
+        run: pnpm --filter devboard-backend build
+
+  ci-backend-e2e:
+    name: CI Backend E2E
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: devboard_test
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter devboard-backend prisma:generate
+
+      - name: Run migrations
+        run: pnpm --filter devboard-backend prisma:migrate:deploy
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5433/devboard_test
+
+      - name: Create .env.test
+        run: |
+          {
+            echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5433/devboard_test"
+            echo "NODE_ENV=test"
+            echo "PORT=3001"
+            echo "CORS_ORIGINS=http://localhost:5173"
+            echo "THROTTLE_TTL=60000"
+            echo "THROTTLE_LIMIT=100"
+          } > devboard-back/.env.test
+
+      - name: E2E tests
+        run: pnpm --filter devboard-backend test:e2e
+
+  security:
+    name: Security Scan (Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan frontend dependencies
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          scan-type: fs
+          scan-ref: ./devboard-front
+          format: table
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+          ignore-unfixed: true
+
+      - name: Scan backend dependencies
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          scan-type: fs
+          scan-ref: ./devboard-back
+          format: table
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+          ignore-unfixed: true

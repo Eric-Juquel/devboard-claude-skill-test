@@ -36,7 +36,6 @@ export function EditProjectDialog({ project, open, onOpenChange }: EditProjectDi
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UpdateProjectInput>({
-    // @ts-expect-error TS2589: zodResolver cannot fully instantiate ZodObject's type chain; form type safety is preserved by useForm<UpdateProjectInput> above
     resolver: zodResolver(updateProjectSchema),
     defaultValues: {
       name: project.name,
