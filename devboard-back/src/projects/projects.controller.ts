@@ -60,6 +60,7 @@ export class ProjectsController {
 
   @Get()
   @ApiOperation({
+    operationId: 'getProjects',
     summary: 'List all projects',
     description: 'Returns all projects ordered by creation date (newest first).',
   })
@@ -76,7 +77,7 @@ export class ProjectsController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get a project by ID' })
+  @ApiOperation({ operationId: 'getProjectById', summary: 'Get a project by ID' })
   @ApiParam({
     name: 'id',
     description: 'Project UUID',
@@ -85,7 +86,7 @@ export class ProjectsController {
   })
   @ApiOkResponse({
     description: 'Project found',
-    schema: { example: PROJECT_EXAMPLE },
+    type: ProjectResponseDto,
   })
   @ApiNotFoundResponse({
     description: 'Project not found',
@@ -97,6 +98,7 @@ export class ProjectsController {
 
   @Get(':id/tasks')
   @ApiOperation({
+    operationId: 'getProjectTasks',
     summary: 'List tasks for a project',
     description: 'Returns all tasks belonging to the project, ordered by creation date (newest first).',
   })
@@ -125,13 +127,14 @@ export class ProjectsController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
+    operationId: 'createProject',
     summary: 'Create a project',
     description: 'Creates a new project. `status` defaults to `active` if omitted.',
   })
   @ApiResponse({
     status: 201,
     description: 'Project created successfully',
-    schema: { example: PROJECT_EXAMPLE },
+    type: ProjectResponseDto,
   })
   @ApiResponse({
     status: 400,
@@ -144,6 +147,7 @@ export class ProjectsController {
 
   @Patch(':id')
   @ApiOperation({
+    operationId: 'updateProject',
     summary: 'Update a project',
     description: 'Partial update — only send the fields you want to change.',
   })
@@ -155,7 +159,7 @@ export class ProjectsController {
   })
   @ApiOkResponse({
     description: 'Updated project',
-    schema: { example: { ...PROJECT_EXAMPLE, name: 'DevBoard Core v2' } },
+    type: ProjectResponseDto,
   })
   @ApiResponse({
     status: 400,
@@ -173,6 +177,7 @@ export class ProjectsController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
+    operationId: 'deleteProject',
     summary: 'Delete a project',
     description: 'Deletes a project and all its associated tasks (cascade).',
   })

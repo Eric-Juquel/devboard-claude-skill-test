@@ -1,0 +1,30 @@
+{
+  "name": "devboard-monorepo",
+  "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "@prisma/client",
+      "@prisma/engines",
+      "@swc/core",
+      "esbuild",
+      "msw",
+      "prisma"
+    ],
+    "overrides": {
+      "effect": ">=3.20.0",
+      "picomatch": ">=4.0.4",
+      "ajv": ">=8.18.0"
+    }
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter ./devboard-front --filter ./devboard-back run dev:package",
+    "build": "pnpm --filter ./devboard-back run build && pnpm --filter ./devboard-front run build",
+    "lint": "pnpm --recursive run lint",
+    "test": "pnpm --recursive run test",
+    "generate:api": "pnpm --filter ./devboard-back run openapi:export && pnpm --filter ./devboard-front run generate:api",
+    "db:up": "docker compose -f devboard-back/docker-compose.yml up -d",
+    "db:migrate": "pnpm --filter ./devboard-back run prisma:migrate",
+    "db:seed": "pnpm --filter ./devboard-back run prisma:seed"
+  }
+}

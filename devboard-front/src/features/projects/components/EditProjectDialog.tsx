@@ -36,7 +36,8 @@ export function EditProjectDialog({ project, open, onOpenChange }: EditProjectDi
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UpdateProjectInput>({
-    resolver: zodResolver(updateProjectSchema),
+    // biome-ignore lint/suspicious/noExplicitAny: prevents TS2589 deep instantiation with Zod default fields
+    resolver: zodResolver(updateProjectSchema as any),
     defaultValues: {
       name: project.name,
       description: project.description ?? "",

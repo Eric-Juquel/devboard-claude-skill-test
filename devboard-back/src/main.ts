@@ -2,6 +2,7 @@ import { ConsoleLogger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import { AppModule } from './app.module';
@@ -12,7 +13,7 @@ async function bootstrap() {
   // are properly reflected into the OpenAPI spec.
   patchNestJsSwagger();
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bodyParser: false });
   const config = app.get(ConfigService);
   const env = config.get<string>('NODE_ENV', 'development');
 
@@ -25,8 +26,9 @@ async function bootstrap() {
 
   // ── Security ──────────────────────────────────────────────────────────────
   // Limit request body size to prevent payload-based DoS attacks.
-  app.use(require('express').json({ limit: '100kb' }));
-  app.use(require('express').urlencoded({ limit: '100kb', extended: true }));
+  // Using body-parser directly for Express 5 compatibility.
+  app.use(bodyParser.json({ limit: '100kb' }));
+  app.use(bodyParser.urlencoded({ limit: '100kb', extended: true }));
 
   // Helmet sets secure HTTP headers (X-Content-Type-Options, X-Frame-Options,
   // Strict-Transport-Security, etc.) on every response.

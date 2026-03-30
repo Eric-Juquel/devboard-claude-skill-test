@@ -6,6 +6,7 @@ export const projectSchema = z.object({
   description: z.string().optional(),
   status: z.enum(["active", "completed", "archived"]),
   createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
 });
 
 export type Project = z.infer<typeof projectSchema>;

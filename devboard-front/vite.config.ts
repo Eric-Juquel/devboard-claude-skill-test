@@ -13,13 +13,11 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/tests/setup.ts",
     globals: true,
+    env: {
+      VITE_API_BASE_URL: "http://localhost:3000",
+    },
     coverage: {
       exclude: ["src/tests/**", "src/main.tsx", "src/i18n/**", "src/shared/types/**"],
-    },
-  },
-  server: {
-    watch: {
-      ignored: ["**/db.json"],
     },
   },
 });
