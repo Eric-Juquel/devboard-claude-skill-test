@@ -17,6 +17,7 @@ export default defineConfig({
       VITE_API_BASE_URL: "http://localhost:3000",
     },
     coverage: {
+      reporter: ["text", "lcov"],
       include: ["src/**"],
       exclude: [
         "src/tests/**",
